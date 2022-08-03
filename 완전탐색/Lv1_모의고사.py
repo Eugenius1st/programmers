@@ -1,89 +1,33 @@
-import sys
-#1번 수포자가 찍는 방식: 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, ...
-#2번 수포자가 찍는 방식: 2, 1, 2, 3, 2, 4, 2, 5, 2, 1, 2, 3, 2, 4, 2, 5, ...
-#3번 수포자가 찍는 방식: 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, ...
-
 def solution(answers):
-    #answer = []
-
-    #babo1 = [1, 2, 3, 4, 5]
-    #babo2 = [2, 1, 2, 3, 2, 4, 2, 5]
-    #babo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]  
-
-    ## 해당 길이만큼 들어오는 값을 나눈 나머지 idx를 찾으면 된다 !!!
-    ## 문제의 정답은 1, 2, 3, 4, 5중 하나입니다.
-    ## 가장 높은 점수를 받은 사람이 여럿일 경우, return하는 값을 오름차순 정렬해주세요.
-    #babo1Len = len(babo1)
-    #babo2Len = len(babo2)
-    #babo3Len = len(babo3) 
-    #babo1Cnt= 0
-    #babo2Cnt=0 
-    #babo3Cnt = 0
-    
-    #for i in range(len(answers)):
-    #    if babo1[i%babo1Len] == answers[i]:
-    #        babo1Cnt = babo1Cnt + 1
-            
-            
-    #    if babo2[i%babo2Len] == answers[i]:
-    #        babo2Cnt = babo2Cnt + 1
-            
-            
-    #    if babo3[i%babo3Len] == answers[i]:
-    #        babo3Cnt = babo3Cnt + 1
-    
-    #maxRank = max(babo1Cnt, babo2Cnt, babo3Cnt)
-    #if maxRank == babo1Cnt:
-    #    answer.append(1)
-    #if maxRank == babo2Cnt:
-    #    answer.append(2)
-    #if maxRank == babo2Cnt:
-    #    answer.append(3)
-    #answer = sorted(answer)
-
-    #return answer
+    # 문제를 가장 많이 맞춘 사람이 누구인지! 
+    # answer배열에 담아  return
     answer = []
-    
-    babo1 = [1, 2, 3, 4, 5]
-    babo2 = [2, 1, 2, 3, 2, 4, 2, 5]
-    babo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]    
-    
-    babo1Len = len(babo1)
+    babo1 = [1,2,3,4,5] 
+    babo2 = [2,1,2,3,2,4,2,5]
+    babo3 = [3,3,1,1,2,2,4,4,5,5] 
+
+    babo1Len = len(babo1) #.length
     babo2Len = len(babo2)
     babo3Len = len(babo3)
-    
-    babo1Cnt = 0
-    babo2Cnt = 0
-    babo3Cnt = 0
-    
-    
+
+    babo1Score = 0
+    babo2Score = 0
+    babo3Score = 0
+
     for i in range(len(answers)):
-        if babo1[i%babo1Len] == answers[i]:
-            babo1Cnt = babo1Cnt + 1
-            
-            
-        if babo2[i%babo2Len] == answers[i]:
-            babo2Cnt = babo2Cnt + 1
-            
-            
-        if babo3[i%babo3Len] == answers[i]:
-            babo3Cnt = babo3Cnt + 1
-            
-            
-    maxRank = max(babo1Cnt, babo1Cnt, babo3Cnt)
-        
-    if maxRank == babo1Cnt:
-        answer.append(1)
-    if maxRank == babo2Cnt:
-        answer.append(2)
-    if maxRank == babo3Cnt:
-        answer.append(3)
+        # 바보들이 답을 맞혔는지 확인
+        if answers[i] == babo1[i%babo1Len]:
+            babo1Score += 1
+        if answers[i] == babo2[i%babo2Len]:
+            babo2Score += 1
+        if answers[i] == babo3[i%babo3Len]:
+            babo3Score += 1
+    rank = [babo1Score,babo2Score,babo3Score]
     
-    answer = sorted(answer)
+    # 가장 많이 맞춘 바보를 answer에 추가, 만약 중복있다면 sort
+    temp = max(rank)                  # 같은 갯수의 문제를 맞췄으면 함께 출력
+    for i in range(len(rank)):
+        if rank[i] == temp:
+            answer.append(i+1)
     return answer
 
-
-
-if __name__ == "__main__":
-    answers = [1,3,2,4,2]
-    print(solution(answers))
