@@ -1,13 +1,11 @@
-def solution(participant, completion):
-    answer = ''
-    temp = 0
-    dic = {}
-    for part in participant:
-        dic[hash(part)] = part #해시값으로 dictionary에 저장
-        temp += int(hash(part))
-    
-    for com in completion:
-        temp -= hash(com)
-    answer = dic[temp] # 특정 해시값으로 dictionary 조회
+def solution(part, comp):
+    marathon = {}
+    for i in comp:
+        marathon[i] = marathon.get(i,0) + 1
 
-    return answer
+    for j in part:
+        marathon[j] = marathon.get(j,0) -1
+        print(marathon[j])
+        if marathon[j] < 0:
+            return j
+        
